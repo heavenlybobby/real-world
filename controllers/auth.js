@@ -11,8 +11,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "heavenlybobby2@gmail.com",
-    pass: "benj atim rtgf ocgx",
+    user: "therealworld1985@gmail.com",
+    pass: "fwdu bgmi vgsq dbtu",
   },
 });
 
@@ -96,7 +96,7 @@ exports.postSignup = (req, res, next) => {
         to: email,
         from: {
           name: "Therealworld",
-          address: "support@therealworld.com",
+          address: "therealworld1985@gmail.com",
         },
         subject: "Signup succeeded!",
         html: `
@@ -237,7 +237,7 @@ exports.postForgottenPassword = (req, res, next) => {
             to: req.body.email,
             from: {
               name: "The Realworld",
-              address: "no-reply@therealworld.com"
+              address: "therealworld1985@gmail.com"
             },
             subject: "Password reset",
             html: `

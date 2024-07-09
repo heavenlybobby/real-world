@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "heavenlybobby2@gmail.com",
-    pass: "benj atim rtgf ocgx",
+    user: "therealworld1985@gmail.com",
+    pass: "fwdu bgmi vgsq dbtu",
   },
 })
 
@@ -89,7 +89,7 @@ exports.postDepositProof = (req, res, next) => {
   res.redirect('/deposit-proof');
   transporter.sendMail({
     to: 'heavenlybobby518@gmail.com',
-      from: "heavenlybobby2@gmail.com",
+      from: "therealworld1985@gmail.com",
       subject: "Payment verification",
       html: `<h1>A client just sent a payment verification</h1> <p>${user}</p>`,
       attachments: [{

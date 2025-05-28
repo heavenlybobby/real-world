@@ -219,3 +219,7 @@ exports.postChangePassword = (req, res, next) => {
       return next(error);
     })
 }
+
+exports.getTermsAndConditions = (req, res, next) => {
+  res.render('terms-and-conditions');
+}

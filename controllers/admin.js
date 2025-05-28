@@ -1,4 +1,16 @@
 const User = require('../models/user');
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "therealworld1985@gmail.com",
+    pass: "fwdu bgmi vgsq dbtu",
+  },
+});
 
 exports.getAdmin = (req, res, next) => {
   User.findOne({ email: req.user.email})
@@ -44,6 +56,10 @@ exports.getEditUser = (req, res, next) => {
     })
 }
 
+let emailuser;
+let userrrr;
+let userdep;
+
 exports.postEditUser = (req, res, next) => {
   const userId = req.body.userId;
   const updatedfullname = req.body.fullname;
@@ -58,6 +74,11 @@ exports.postEditUser = (req, res, next) => {
       if (!user) {
         return res.redirect('/admin');
       }
+
+      emailuser = user.email
+      userrrr = user.username
+      userdep = user.totalDeposit
+
       user.fullname = updatedfullname;
       user.username = updatedusername;
       user.email = updatedemail;
@@ -65,11 +86,34 @@ exports.postEditUser = (req, res, next) => {
       user.totalProfit = updatedtotalProfit;
       user.accountWithdrawable = updatedaccountWithdrawable;
 
-      return user.save();
-    })
-    .then(result => {
-      console.log('User Updated')
-      res.redirect('/admin');
+      user.save().then(result => {
+        console.log('User Updated')
+        res.redirect('/admin');
+
+        if (userdep != updatedtotalDeposit) {
+          transporter.sendMail({
+            to: emailuser,
+            from: {
+              name: "Therealworld",
+              address: "therealworld1985@gmail.com",
+            },
+            subject: "Assets updated",
+            html: `
+            <center>
+              <div  style="background-color: #e2e1e1; padding: 10px;" width="230px">
+                <div>
+                  <img src="https://app.therealworld.expert/public/images/fps_logo1.png" alt="logo" width="230px">
+                </div>
+                <div>
+                  <h3>HI, ${userrrr}</h3>
+                  <p>Your Deposit of $${updatedtotalDeposit} was successful and have been added to your account</P>
+                </div> 
+              </div>
+            </center>  
+            `,
+          });
+        }
+      });
     })
     .catch(err => {
       const error = new Error(err);

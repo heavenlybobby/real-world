@@ -47,4 +47,6 @@ router.post(
   ],
   websiteControllers.postChangePassword);
 
+  router.get('/termsandconditions', websiteControllers.getTermsAndConditions);
+
 module.exports = router
